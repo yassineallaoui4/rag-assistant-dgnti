@@ -1,0 +1,10 @@
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+chroma_db/
+pdfs/
+pdfs22/
+.pytest_cache/
+logs/

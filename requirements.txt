@@ -1,0 +1,11 @@
+streamlit==1.57.0
+chromadb==1.5.8
+langchain-community==0.4.1
+langchain-core==1.4.0
+langchain-groq==1.1.2
+langchain-text-splitters==1.1.2
+sentence-transformers==5.4.1
+PyMuPDF==1.27.2.3
+pytesseract==0.3.13
+Pillow==12.2.0
+python-dotenv==1.0.0
