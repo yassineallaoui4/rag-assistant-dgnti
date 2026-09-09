@@ -67,7 +67,7 @@ Synchronisation depuis le terminal :
 .\venv\Scripts\python.exe ingest.py --rebuild
 ```
 
-`--rebuild` refait l'extraction et l'OCR. La synchronisation normale réutilise les passages inchangés mais recalcule les embeddings lors de la création d'une nouvelle génération. Seul `pdfs/` est indexé, pas `pdfs22/`.
+`--rebuild` refait l'extraction et l'OCR. La synchronisation normale réutilise les passages inchangés mais recalcule les embeddings lors de la création d'une nouvelle génération.
 
 ## Organisation du code
 
