@@ -67,7 +67,7 @@ To synchronize from the terminal:
 .\venv\Scripts\python.exe ingest.py --rebuild
 ```
 
-`--rebuild` repeats extraction and OCR. Normal updates reuse unchanged passages, but recalculate embeddings when building a new generation. Only `pdfs/` is indexed, not `pdfs22/`.
+`--rebuild` repeats extraction and OCR. Normal updates reuse unchanged passages, but recalculate embeddings when building a new generation.
 
 ## Project structure
 
