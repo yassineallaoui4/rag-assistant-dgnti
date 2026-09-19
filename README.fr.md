@@ -12,6 +12,12 @@ Assistant documentaire Python combinant extraction locale des PDF, OCR bilingue,
   <img src="docs/images/interface.png" alt="Interface de RAG Assistant DGNTI" width="900">
 </p>
 
+## Architecture RAG 
+
+<p align="center">
+  <img src="docs/images/architecture.png" alt="architecture RAG - assistant documentaire" width="900">
+</p>
+
 ## Fonctionnalités
 
 - Extraction directe du texte et OCR Tesseract pour les pages scannées ou illisibles.
