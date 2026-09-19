@@ -23,17 +23,9 @@ A Python document assistant combining local PDF extraction, bilingual OCR, seman
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A[PDF documents] --> B[Extraction / OCR]
-    B --> C[Overlapping passages]
-    C --> D[E5 embeddings + Chroma]
-    E[Question] --> D
-    D --> F[Selected excerpts]
-    F --> G[Groq language model]
-    E --> G
-    G --> H[Answer and sources]
-```
+<p align="center">
+  <img src="docs/images/architecture.png" alt="architecture RAG Assistant DGNTI" width="900">
+</p>
 
 OCR and embeddings run locally. Groq receives the question, recent conversation and selected excerpts. This is retrieval-augmented generation, not training a model on the PDFs.
 
