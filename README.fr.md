@@ -12,12 +12,6 @@ Assistant documentaire Python combinant extraction locale des PDF, OCR bilingue,
   <img src="docs/images/interface.png" alt="Interface de RAG Assistant DGNTI" width="900">
 </p>
 
-## Architecture RAG 
-
-<p align="center">
-  <img src="docs/images/architecture.png" alt="architecture RAG - assistant documentaire" width="900">
-</p>
-
 ## Fonctionnalités
 
 - Extraction directe du texte et OCR Tesseract pour les pages scannées ou illisibles.
@@ -29,17 +23,9 @@ Assistant documentaire Python combinant extraction locale des PDF, OCR bilingue,
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    A[Documents PDF] --> B[Extraction / OCR]
-    B --> C[Passages avec chevauchement]
-    C --> D[Embeddings E5 + Chroma]
-    E[Question] --> D
-    D --> F[Extraits sélectionnés]
-    F --> G[Modèle via Groq]
-    E --> G
-    G --> H[Réponse et sources]
-```
+<p align="center">
+  <img src="docs/images/architecture.png" alt="Architecture RAG Assistant DGNTI" width="900">
+</p>
 
 L'OCR et les embeddings sont calculés localement. Groq reçoit la question, les échanges récents et les extraits sélectionnés. L'application utilise la génération augmentée par recherche ; elle n'entraîne pas de modèle sur les PDF.
 
