@@ -6,6 +6,12 @@
 
 Assistant documentaire Python combinant extraction locale des PDF, OCR bilingue, recherche sémantique et génération via Groq. L'interface Streamlit prend en charge les courriers administratifs français et arabes.
 
+## Interface
+
+<p align="center">
+  <img src="docs/images/interface.png" alt="Interface de RAG Assistant DGNTI" width="900">
+</p>
+
 ## Fonctionnalités
 
 - Extraction directe du texte et OCR Tesseract pour les pages scannées ou illisibles.
