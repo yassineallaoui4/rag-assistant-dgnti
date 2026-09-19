@@ -6,6 +6,12 @@ English | [Français](README.fr.md)
 
 A Python document assistant combining local PDF extraction, bilingual OCR, semantic search and answer generation through Groq. The Streamlit interface supports French and Arabic administrative correspondence.
 
+## Interface
+
+<p align="center">
+  <img src="docs/images/interface.png" alt="RAG Assistant DGNTI interface" width="900">
+</p>
+
 ## Features
 
 - Extract text from PDFs; use Tesseract OCR for scanned or unreadable pages.
