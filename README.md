@@ -1,100 +1,97 @@
-# RAG Assistant DGNTI
+# RAG Assistant DGNTI — Présentation du projet
 
-**Ask questions about French and Arabic PDFs and inspect the supporting excerpts.**
+Ce dépôt est désormais un **dépôt de présentation** : il documente le projet RAG Assistant DGNTI, sans code source exécutable.
 
-English | [Français](README.fr.md)
+## Contexte et problématique
 
-A Python document assistant combining local PDF extraction, bilingual OCR, semantic search and answer generation through Groq. The Streamlit interface supports French and Arabic administrative correspondence.
+Le projet s’inscrit dans un besoin fréquent au sein d’environnements administratifs et académiques : retrouver rapidement des informations fiables dans un grand volume de documents PDF, parfois multilingues (français/arabe) et parfois scannés.
 
-## Interface
+La difficulté principale est double :
+- accéder rapidement à l’information pertinente ;
+- conserver la traçabilité des réponses en s’appuyant sur des extraits de documents.
+
+## Objectifs du projet
+
+- Faciliter la consultation documentaire à partir de questions en langage naturel.
+- Améliorer l’accès à l’information dans des corpus PDF hétérogènes.
+- Fournir des réponses appuyées par des références explicites aux passages retrouvés.
+
+## Fonctionnalités prévues / réalisées
+
+Fonctionnalités prévues ou réalisées dans l’implémentation initiale du projet :
+- ingestion et préparation de documents PDF ;
+- OCR pour les pages scannées ;
+- indexation sémantique des contenus ;
+- recherche de passages pertinents ;
+- génération de réponses contextualisées avec citations d’extraits.
+
+## Architecture (description conceptuelle)
 
 <p align="center">
-  <img src="docs/images/interface.png" alt="RAG Assistant DGNTI interface" width="900">
+  <img src="docs/images/architecture.png" alt="Architecture conceptuelle RAG Assistant DGNTI" width="900">
 </p>
 
-## Features
+Architecture fonctionnelle (vue conceptuelle) :
+1. **Collecte documentaire** : réception des PDF.
+2. **Prétraitement** : extraction du texte et OCR si nécessaire.
+3. **Structuration** : découpage en passages exploitables.
+4. **Indexation vectorielle** : représentation sémantique des passages.
+5. **Recherche** : récupération des extraits les plus pertinents pour une question.
+6. **Génération de réponse** : formulation d’une réponse basée sur les extraits retrouvés.
+7. **Restitution** : affichage de la réponse et des références associées.
 
-- Extract text from PDFs; use Tesseract OCR for scanned or unreadable pages.
-- Split text into overlapping passages while preserving file names and page numbers.
-- Search by meaning with multilingual E5 embeddings and Chroma.
-- Generate answers with numbered excerpt references and follow-up conversation context.
-- Detect added, changed and removed PDFs during synchronization.
-- Build and validate a new index collection before activating it, preserving the previous generation if an update fails.
+## Technologies utilisées
 
-## Architecture
+Technologies mobilisées dans la version applicative initiale :
+- interface web de démonstration ;
+- traitement PDF et OCR ;
+- embeddings multilingues ;
+- base vectorielle ;
+- modèle de génération de réponses.
+
+> Ce dépôt ne fournit plus l’implémentation technique associée à ces composants.
+
+## Flux de fonctionnement (sans code)
+
+1. L’utilisateur soumet une question.
+2. Le système recherche les passages les plus proches sémantiquement dans le corpus.
+3. Les extraits retenus sont utilisés comme contexte de réponse.
+4. Une réponse est restituée avec des références vers les extraits utiles.
+
+## Cas d’utilisation (exemples)
+
+- **Consultation de courriers administratifs** : retrouver rapidement les clauses ou informations demandées.
+- **Appui à la lecture bilingue** : naviguer dans des documents français et arabes au sein d’un même corpus.
+- **Préparation de synthèses** : accélérer l’identification des passages clés avant rédaction.
+
+## Illustrations
+
+### Interface
 
 <p align="center">
-  <img src="docs/images/architecture.png" alt="architecture RAG Assistant DGNTI" width="900">
+  <img src="docs/images/interface.png" alt="Aperçu de l’interface du projet" width="900">
 </p>
 
-OCR and embeddings run locally. Groq receives the question, recent conversation and selected excerpts. This is retrieval-augmented generation, not training a model on the PDFs.
+## Limites et perspectives
 
-## Stack
+Limites identifiées :
+- qualité variable selon la lisibilité des scans et la qualité OCR ;
+- pertinence des réponses dépendante de la qualité des documents et du paramétrage de la recherche ;
+- nécessité d’une évaluation systématique sur des jeux de cas réels.
 
-| Component | Technology |
-| --- | --- |
-| Interface | Streamlit |
-| PDF and OCR | PyMuPDF, Tesseract, Pillow |
-| Embeddings | `intfloat/multilingual-e5-base`, Sentence Transformers |
-| Vector database | Chroma |
-| Answer generation | Groq via LangChain |
+Perspectives :
+- enrichir le protocole d’évaluation (qualité de réponse, couverture, précision des citations) ;
+- renforcer la gouvernance documentaire (qualité des sources, cycle de mise à jour) ;
+- améliorer l’ergonomie pour des usages métiers spécifiques.
 
-## Run on Windows
+## Périmètre actuel du dépôt
 
-Install Python 3.11 or later and Tesseract with French (`fra`) and Arabic (`ara`) language data. From the project directory:
+Ce dépôt contient uniquement :
+- la documentation de présentation du projet ;
+- des illustrations (schémas/captures) dans `docs/images/`.
 
-```powershell
-python -m venv venv
-.\venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-Create `.env` from `.env.example` if it does not already exist and set `GROQ_API_KEY`. Set `TESSERACT_CMD` if needed. `GROQ_MODEL` selects the answer model; the configured default is `openai/gpt-oss-120b`. Model access depends on your Groq account.
-
-Create `pdfs/`, add PDFs you are authorized to process, then run:
-
-```powershell
-.\venv\Scripts\python.exe -m streamlit run app.py
-```
-
-Click **Mettre à jour la base**, then ask a question in French or Arabic. The embedding model downloads on first use; answer generation requires Internet access. No sample PDFs are bundled.
-
-To synchronize from the terminal:
-
-```powershell
-.\venv\Scripts\python.exe ingest.py
-.\venv\Scripts\python.exe ingest.py --rebuild
-```
-
-`--rebuild` repeats extraction and OCR. Normal updates reuse unchanged passages, but recalculate embeddings when building a new generation.
-
-## Project structure
-
-| Path | Purpose |
-| --- | --- |
-| `app.py` | Application entry point and question workflow |
-| `config.py` | Models, paths, limits and bilingual prompt |
-| `ingest.py` | Index synchronization command |
-| `rag/pdf_loader.py` | PDF extraction, OCR and splitting |
-| `rag/vectorstore.py` | Embeddings and persistent index management |
-| `rag/qa_engine.py` | Retrieval, conversation context and generation |
-| `ui/chat.py` | Welcome screen, messages and sources |
-| `ui/sidebar.py` | Document list and update controls |
-| `ui/styles.py` | Custom styling |
-| `.streamlit/config.toml` | Streamlit theme |
-| `.env.example` | Configuration template without credentials |
-
-## Index behavior and limitations
-
-- SHA-256 fingerprints detect document changes. Old collections remain on disk; use only one indexing process at a time.
-- Missing folders, unreadable files and OCR errors interrupt updates. Pages with insufficient text are skipped; a PDF with no usable text blocks publication.
-- Synchronizing an empty PDF folder can publish an empty collection when a database already exists. Updating clears the current session's conversation.
-- Legacy collections without a manifest assume the configured embedding model matches their original model. An explicit update migrates them to normalized E5 embeddings with `query:` and `passage:` prefixes.
-- OCR and answer quality still need evaluation on annotated examples. Citations identify supplied excerpts; they do not automatically verify each statement. The relevance threshold is disabled until calibrated.
-
-## Data handling
-
-`.gitignore` excludes `.env`, local PDFs, the Chroma database and environment folders. Keep credentials and confidential documents out of commits. Process only documents you are authorized to share with the configured answer service.
-
-## Development language
-
-Documentation is available in English and French; the interface remains French/Arabic. Existing Python identifiers follow the project's French naming. Use consistent English names and comments for new modules while keeping user-facing text in the interface languages.
+Il ne contient plus :
+- code source exécutable ;
+- scripts de lancement ou de configuration d’exécution ;
+- dépendances applicatives ;
+- artefacts techniques liés à l’exécution de l’assistant.
